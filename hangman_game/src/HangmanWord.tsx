@@ -1,49 +1,25 @@
 export function HangmanWord() {
-    return <div style={{ position: "relative"}}>
 
-        <div 
-            style={{
-                height: "50px",
-                width: "10px",
-                background: "black",
-                position: "absolute",
-                top: 0,
-                right: 0,
-            }}
-        />
-
-        <div 
-            style={{
-                height: "10px",
-                width: "200px",
-                background: "black",
-                marginLeft: "120px"
-            }}
-        />
+    const word = "test"
+    const guessedLetters = ["t", "e", "g"]
 
 
-
-
-        <div 
-            style={{
-                height: "400px",
-                width: "10px",
-                background: "black",
-                marginLeft: "120px"
-            }}
-        />
-
-
-
-
-        <div 
-            style={{
-                height: "10px",
-                width: "250px",
-                background: "black"
-            }}
-        />
-
+    return <div style={{ display: "flex", gap: ".25em", fontSize: "6rem", fontWeight: "bold", textTransform: "uppercase", fontFamily: "monospace"}}>
+        {word.split("").map((letter, index) => (
+            <span style={{borderBottom: ".1em solid black"}} key={index}>
+                
+                <span style={{
+                    visibility: guessedLetters.includes(letter) 
+                    ? "visible"
+                    : "hidden",
+                }}
+                
+                >
+                    {letter}
+                </span>
+                
+            </span>
+        ))}
     </div>
     
 }
