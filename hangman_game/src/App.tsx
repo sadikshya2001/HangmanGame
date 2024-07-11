@@ -3,6 +3,7 @@ import words from "./wordList.json";
 import { HangmanDrawing } from "./HangmanDrawing";
 import { HangmanWord } from "./HangmanWord";
 import { Keyboard } from "./Keyboard";
+import Popup from "./PopUp";
 
 function getWord() {
   const randomWordObj = words[Math.floor(Math.random() * words.length)];
@@ -12,6 +13,8 @@ function getWord() {
 function App() {
   const [wordToGuessObj, setWordToGuessObj] = useState(getWord);
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
 
   const wordToGuess = wordToGuessObj.word;
   const hint = wordToGuessObj.hint;
@@ -59,6 +62,22 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    if (isWinner) {
+      setShowPopup(true);
+      setPopupMessage("Winner! Press Enter to play again.");
+    } else if (isLoser) {
+      setShowPopup(true);
+      setPopupMessage("Nice try! Press Enter to play again.");
+    }
+  }, [isWinner, isLoser]);
+
+  const handlePopupClose = useCallback(() => {
+    setShowPopup(false);
+    setGuessedLetters([]);
+    setWordToGuessObj(getWord());
+  }, []);
+
   return (
     <div
       style={{
@@ -103,6 +122,7 @@ function App() {
           addGuessedLetter={addGuessedLetter}
         />
       </div>
+      {showPopup && <Popup message={popupMessage} />}
     </div>
   );
 }
