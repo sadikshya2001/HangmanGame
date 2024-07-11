@@ -1,26 +1,39 @@
+/* keyboard.module.css */
 .btn {
-    width: 100%;
-    border: 3px solid black;
-    background: none;
-    aspect-ratio: 1 / 1;
-    font-size: 2.5rem;
-    text-transform: uppercase;
-    padding: .5rem;
-    font-weight: bold;
+    padding: 0.75em;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f9fa;
     cursor: pointer;
-    color: black;
-}
-
-.btn.active {
-    background-color: hsl(200, 100%, 50%);
+    transition: background-color 0.3s, transform 0.2s;
+    text-transform: uppercase;
+  }
+  
+  .btn:active {
+    transform: scale(0.95);
+  }
+  
+  .btn:hover:not(:disabled) {
+    background-color: #e2e6ea;
+  }
+  
+  .btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .active {
+    background-color: #007bff;
     color: white;
-}
-
-.btn.inactive {
-    opacity: .3;
-}
-
-.btn:hover:not(:disabled),
-.btn:focus:not(:disabled) {
-    background-color: hsl(200, 100%, 75%);
-}
+    border-color: #007bff;
+    cursor: not-allowed;
+  }
+  
+  .inactive {
+    background-color: #dc3545;
+    color: white;
+    border-color: #dc3545;
+    cursor: not-allowed;
+  }
+  
