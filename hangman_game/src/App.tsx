@@ -4,6 +4,7 @@ import { HangmanDrawing } from "./HangmanDrawing";
 import { HangmanWord } from "./HangmanWord";
 import { Keyboard } from "./Keyboard";
 import Popup from "./PopUp";
+import './App.css'
 
 function getWord() {
   const randomWordObj = words[Math.floor(Math.random() * words.length)];
@@ -55,6 +56,8 @@ function App() {
       e.preventDefault();
       setGuessedLetters([]);
       setWordToGuessObj(getWord());
+      setShowPopup(false);
+      setPopupMessage("");
     };
     document.addEventListener("keypress", handler);
     return () => {
@@ -65,41 +68,42 @@ function App() {
   useEffect(() => {
     if (isWinner) {
       setShowPopup(true);
-      setPopupMessage("Winner! Press Enter to play again.");
+      setPopupMessage("YAY, You guessed the word! 🎉- Press Enter to play again");
+      
     } else if (isLoser) {
       setShowPopup(true);
-      setPopupMessage("Nice try! Press Enter to play again.");
+      setPopupMessage("Sorry 😢 Try again! - Press Enter to play again");
     }
   }, [isWinner, isLoser]);
 
-  const handlePopupClose = useCallback(() => {
-    setShowPopup(false);
-    setGuessedLetters([]);
-    setWordToGuessObj(getWord());
-  }, []);
-
   return (
     <div
-      style={{
-        maxWidth: "800px",
-        display: "flex",
-        flexDirection: "column",
-        gap: "2rem",
-        margin: "0 auto",
-        alignItems: "center",
-        padding: "2rem",
-        backgroundColor: "#fff",
-        borderRadius: "8px",
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)"
-      }}
-    >
-      <div
-        className={`result-message ${isWinner ? "winner" : ""}`}
-        style={{ fontSize: "2rem", textAlign: "center" }}
-      >
-        {isWinner && "Winner! - Press Enter to play again"}
-        {isLoser && "Nice try! - Press Enter to play again"}
-      </div>
+    style={{
+      maxWidth: "800px",
+      display: "flex",
+      flexDirection: "column",
+      gap: "2rem",
+      margin: "0 auto",
+      alignItems: "center",
+      padding: "2rem",
+      backgroundColor: "#fff",
+      borderRadius: "16px",
+      boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)",
+      position: "relative",
+      overflow: "hidden"
+    }}
+  >
+    <div id="background-animation">
+      <div className="circle"></div>
+      <div className="circle"></div>
+      <div className="circle"></div>
+      <div className="circle"></div>
+      <div className="circle"></div>
+    </div>
+    <div style={{ textAlign: "center" }}>
+      <h1>HANGMAN GAME</h1>
+    </div>
+      
 
       <HangmanDrawing numberOfGuesses={incorrectLetters.length} />
       <HangmanWord
